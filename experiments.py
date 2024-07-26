@@ -13,26 +13,26 @@ import ipm_tracker as ipm
 class _Experiments:
 
     def __init__(self, 
-                initial_time          : np.float,
-                final_time            : np.float, 
-                stepsize  : np.float,
-                residual_tolerance    : np.float,
-                gamma_1               : np.float,
-                gamma_2               : np.float,
-                STEPSIZE_TUNING       : np.bool, 
-                FOLLOW_GRID           : np.bool,
+                initial_time          : float,
+                final_time            : float, 
+                stepsize              : float,
+                residual_tolerance    : float,
+                gamma_1               : float,
+                gamma_2               : float,
+                STEPSIZE_TUNING       : bool, 
+                FOLLOW_GRID           : bool,
 
-                init_point_precision  : np.float,
-                scs_tolerance         : np.float,
-                ipm_tolerance         : np.float,
+                init_point_precision  : float,
+                scs_tolerance         : float,
+                ipm_tolerance         : float,
 
-                DATA_FILE             : np.str, 
-                LOAD_DATA             : np.bool,  
-                SAVE_EXP              : np.bool,
-                RUN_PATH_FOLL         : np.bool,
-                RUN_MOSEK             : np.bool,
-                RUN_SCS               : np.bool,
-                PLOT_EXP              : np.bool,
+                DATA_FILE             : str, 
+                LOAD_DATA             : bool,  
+                SAVE_EXP              : bool,
+                RUN_PATH_FOLL         : bool,
+                RUN_MOSEK             : bool,
+                RUN_SCS               : bool,
+                PLOT_EXP              : bool,
                 ):
         
         self.initial_time         = initial_time    
@@ -97,9 +97,9 @@ class _Experiments:
 
         k=data_index
 
-        def A(time: np.float): return exp_dict['exp_data']['A_init'][k] + time*exp_dict['exp_data']['A_pert'][k]
-        def b(time: np.float): return exp_dict['exp_data']['b_init'][k] + time*exp_dict['exp_data']['b_pert'][k]
-        def C(time: np.float): return exp_dict['exp_data']['C_init'][k] + time*exp_dict['exp_data']['C_pert'][k]
+        def A(time: float): return exp_dict['exp_data']['A_init'][k] + time*exp_dict['exp_data']['A_pert'][k]
+        def b(time: float): return exp_dict['exp_data']['b_init'][k] + time*exp_dict['exp_data']['b_pert'][k]
+        def C(time: float): return exp_dict['exp_data']['C_init'][k] + time*exp_dict['exp_data']['C_pert'][k]
 
         return A, b, C 
 
@@ -107,10 +107,10 @@ class _Experiments:
 
         if data_index > 0:
             mean_time = np.mean(running_times) 
-            minutes = np.str(np.int(np.divmod((NR_INSTANCES-data_index)*mean_time,60)[0]))
-            seconds = np.str(np.int(np.divmod((NR_INSTANCES-data_index)*mean_time,60)[1]))
+            minutes = str(int(np.divmod((NR_INSTANCES-data_index)*mean_time,60)[0]))
+            seconds = str(int(np.divmod((NR_INSTANCES-data_index)*mean_time,60)[1]))
             if len(seconds)==1: seconds = '0'+seconds
-            centiseconds = np.str(mean_time-np.floor(mean_time))
+            centiseconds = str(mean_time-np.floor(mean_time))
             print('Instance',data_index,'/',NR_INSTANCES," | time to termination: "+minutes+":"+seconds+":"+centiseconds[2:4])  
 
     def run_experiments(self):
@@ -245,7 +245,7 @@ class _Experiments:
         if self.PLOT_EXP :
 
             plotools = plot._Plottingtools(PLOT_DEGEN=False)
-            plotools.plot_residual_VS_subdivision(self.exp_dict,self.load_exp_file('rank_deg'))
+            plotools.plot_residual_VS_subdivision(self.exp_dict)
             plotools.plot_runtime_VS_subdivision(self.exp_dict)
             # plotools.plot_runtime_VS_grids(self.exp_dict)
             # plotools.plot_residual_VS_parameter(self.exp_dict)

@@ -33,13 +33,13 @@ class _ProblemCreator:
         C_init = q1.T @ np.diag([x**2 for x in sc.sparse.random(n, 1, density=1, data_rvs=normal_seed).toarray().T[0]]) @ q1
         C_pert = q2.T @ np.diag([x**2 for x in sc.sparse.random(n, 1, density=1, data_rvs=normal_seed).toarray().T[0]]) @ q2
 
-        def A(time: np.float): 
+        def A(time: float): 
             return A_init + time*A_pert 
         
-        def b(time: np.float):
+        def b(time: float):
             return b_init + time*b_pert 
         
-        def C(time: np.float):
+        def C(time: float):
             return C_init + time*C_pert 
 
         return A, b, C
@@ -64,8 +64,8 @@ class _ProblemCreator:
         C_init = np.abs(rand_C_init - rand_C_init.T) 
         C_pert = np.abs(rand_C_pert - rand_C_pert.T)     
 
-        def A(time: np.float): return A_init
-        def b(time: np.float): return b_init 
-        def C(time: np.float): return C_init + time*C_pert 
+        def A(time: float): return A_init
+        def b(time: float): return b_init 
+        def C(time: float): return C_init + time*C_pert 
        
         return A, b, C 

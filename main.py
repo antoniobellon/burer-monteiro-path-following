@@ -3,8 +3,8 @@ import experiments as exp
 experiments = exp._Experiments(LOAD_DATA             = False,          # controls whether to load old data or create new ones instead
                                DATA_FILE             = 'SIAM_DATA',    # name of the data file to load 
                                
-                               RUN_PATH_FOLL         = False,          # controls which procedure to run
-                               RUN_MOSEK             = False,
+                               RUN_PATH_FOLL         = True,          # controls which procedure to run
+                               RUN_MOSEK             = True,
                                RUN_SCS               = False,
 
                                SAVE_EXP              = False,          # controls whether to save the experiments

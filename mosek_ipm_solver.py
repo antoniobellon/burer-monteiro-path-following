@@ -103,7 +103,7 @@ def _get_initial_point(A: np.ndarray, b: np.ndarray, C: np.ndarray, rel_gap_tol:
     eig_vals_X = np.flip(eig_dec[0]) 
     eig_vecs_X = np.flip(eig_dec[1],1)
     
-    Y= np.ndarray((np.shape(X)[0],rank),dtype=np.float)
+    Y= np.ndarray((np.shape(X)[0],rank),dtype=float)
     for i in range(rank):
         Y[:,i] = eig_vecs_X[:,i] * np.sqrt(eig_vals_X[i]) 
      

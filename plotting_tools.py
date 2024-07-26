@@ -9,7 +9,7 @@ import pickle
 
 class _Plottingtools:
 
-    def __init__(self, PLOT_DEGEN: np.bool) -> None:
+    def __init__(self, PLOT_DEGEN: bool) -> None:
         
         self.stepsizes = [10**k  for k in range(1, 7)] 
         self.gridsizes = [20,40,60,80,100] 
@@ -22,7 +22,7 @@ class _Plottingtools:
         self.carrot   = '#FFC26A'
         self.bordeaux = '#800020'
 
-    def plot_residual_VS_subdivision(self, exp_dict, degen_dic): 
+    def plot_residual_VS_subdivision(self, exp_dict): 
         
         stepsizes = self.stepsizes
         NR_INSTANCES = len(exp_dict['exp_data']['A_init'])
@@ -62,20 +62,6 @@ class _Plottingtools:
             marker_color = self.green,
             boxpoints    = False
             )) 
-
-        if self.PLOT_DEGEN: 
-
-            NR_INSTANCES = len(degen_dic['exp_data']['A_init'])
-        
-            PC_SDP_residuals_deg     = [np.mean(x) for sub in stepsizes for x in degen_dic['PC_SDP_residuals'][str(sub)]] 
-            PC_SDP_subdivisions_deg  = ["{:.0e}".format(1/sub) for sub in stepsizes for x in range(NR_INSTANCES) if not degen_dic['PC_SDP_residuals'][str(sub)]==[]] 
-            
-            fig.add_trace(go.Scatter(
-                x            = PC_SDP_subdivisions_deg,
-                y            = PC_SDP_residuals_deg,
-                mode         = 'markers',
-                marker_color = self.lime,
-                name         = r'$\text{rank changing instances}$', )) 
 
         fig.update_layout(
             width             = 810,
